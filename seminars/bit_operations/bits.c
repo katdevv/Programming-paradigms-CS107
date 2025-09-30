@@ -213,17 +213,24 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
+  // '0' = 0x30
+  // '9' = 0x39
   int minus30 = ~0x30 + 1;
   int check1 = x + minus30;
 
   int minusX = ~x + 1;
   int check2 = 0x39 + minusX;
+   // if both non-negative, its in the range
 
   // 1 0
   // 11111111
   // 00000000
   // ! 00000000
   // ! 00000001
+
+  // Non-negative → top bit 0 → >> 31 gives 0 → !0 = 1
+  // Negative → top bit 1 → >> 31 gives -1 (all 1s, nonzero) → !nonzero = 0
+  // if dadebiti, ganuldeba da gaxdeba 1
   return !(check1 >> 31) & !(check2 >> 31);
 }
 /* 
@@ -234,7 +241,8 @@ int isAsciiDigit(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  return 2;
+    int mask = (~!!x) + 1;          // x!=0 -> 0xFFFFFFFF, x==0 -> 0x00000000
+    return (mask & y) | (~mask & z);
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -244,7 +252,7 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-
+  return 2;
 }
 //4
 /* 
