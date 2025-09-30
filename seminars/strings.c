@@ -50,6 +50,20 @@ void *memset(void *s, int c, size_t n)
     return s;
 }
 
+char *ConcatStrings(const char *first, const char *second)
+{
+  int strLen = strlen(first);
+  int strLen2 = strlen(second);
+  char* p = malloc((strLen + strLen2 + 1)* sizeof(char));
+  for (int i = 0; i < strLen; i++){
+    p[i] = first[i];
+  }
+  for (int i = 0; i <= strLen2; i++){
+    p[i + strLen] = second[i];
+  }
+  return p;
+}
+
 int main()
 {
     // strcmp
@@ -130,4 +144,14 @@ int main()
     char memsetBuffer[50];
     memset((void *)memsetBuffer, 'A', 40);
     printf("    buffer after memset call: %s\n", memsetBuffer);
+
+    // concat
+    char *string1 = "abc";
+    char *string2 = "de";
+    char *result = ConcatStrings(string1, string2);
+    printf("string1: %s\n", string1);
+    printf("string2: %s\n", string2);
+    printf("result: %s\n", result);
+    printf("addresses (can't be the same):\n");
+    printf("1: %p, 2: %p, r: %p\n", string1, string2, result);
 }
