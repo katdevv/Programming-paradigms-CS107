@@ -13,7 +13,7 @@ int lsearchInt(int* a, int num_elems, int v){
 */
 
 // memcmp - memory compare - compares number of bytes
-/*
+
 int lsearchGeneral(void*a, int num_elems, void* v, int elem_size){
   for(int i = 0; i < num_elems; i++){
     void* p = (char*)a + i * elem_size;
@@ -21,7 +21,7 @@ int lsearchGeneral(void*a, int num_elems, void* v, int elem_size){
   }
   return -1;
 }
-*/
+
 
 typedef int(*CmpFn)(void*, void*);
 /*
@@ -61,9 +61,9 @@ int main(){
 
   char* s[3] = {
     strdup("freeuni"), // allocates heap memory, copies "abcd", returns pointer
-    strdup("agruni"),
+    strdup("agruni"), // string dublicate
     strdup("abcd"),
   };
   char *r = "agruni";
-  printf("%d\n", lsearch(s, 3, &r, sizeof(char*), StrCmp)); // doesnt work
+  printf("%d\n", lsearch(s, 3, &r, sizeof(char*), StrCmp));
 }
