@@ -182,8 +182,11 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
-
+  // 01010101 ...
+  int i = 0x55555555;
+  int p = x | i;
+  // 0xffffffff
+  return !(~p);
 }
 /* 
  * negate - return -x 
@@ -192,8 +195,12 @@ int allOddBits(int x) {
  *   Max ops: 5
  *   Rating: 2
  */
+// 5                00001001
+// ones complement  11110110   + 1
+// two's complement 11110111
+//
 int negate(int x) {
-  return 2;
+  return ~x + 1;
 }
 //3
 /* 
@@ -206,7 +213,18 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-  return 2;
+  int minus30 = ~0x30 + 1;
+  int check1 = x + minus30;
+
+  int minusX = ~x + 1;
+  int check2 = 0x39 + minusX;
+
+  // 1 0
+  // 11111111
+  // 00000000
+  // ! 00000000
+  // ! 00000001
+  return !(check1 >> 31) & !(check2 >> 31);
 }
 /* 
  * conditional - same as x ? y : z 
@@ -226,7 +244,7 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+
 }
 //4
 /* 
