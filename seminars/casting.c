@@ -22,4 +22,11 @@ int main() {
 
   printf("int fi_cast = %d\n", fi_cast);
 
+  // 00000000 00000101
+  short s2 = 5;
+  // 01010100 01010101 00000000 00000101
+  int i2 = *(int *)&s2;
+
+  printf("s2 = %d\ni2 = %d\n", s2, i2);
+
 }
