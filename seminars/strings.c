@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int strcmp(const char *s1, const char *s2) {
+int _strcmp(const char *s1, const char *s2) {
   int i = 0;
   while(s1[i] != '\0' && s2[i] != '\0') {
     if(s1[i] != s2[i]) return s1[i] - s2[i];
@@ -10,7 +10,7 @@ int strcmp(const char *s1, const char *s2) {
     return s1[i] - s2[i];
 }
 
-char *strcpy(char *dest, const char *src)
+char *_strcpy(char *dest, const char *src)
 {
     int i = 0;
     while(src[i] != 0) {
@@ -21,28 +21,29 @@ char *strcpy(char *dest, const char *src)
     return dest;
 }
 
-size_t strlen(const char *s)
+size_t _strlen(const char *s)
 {
     int i = 0;
     while(s[i] != '\0') i++;
     return i;
 }
 
-char *strcat(char *dest, const char *src)
+char *_strcat(char *dest, const char *src)
+
 {
-    int len = strlen(dest);
-    strcpy(dest + len, src);
-    return NULL;
+    int len = _strlen(dest);
+    _strcpy(dest + len, src);
+    return dest;
 }
 
-char *strdup(const char *s)
+char *_strdup(const char *s)
 {
-    int len = strlen(s);
+    int len = _strlen(s);
     char* p = malloc((len + 1) * sizeof(char));
-    return strcpy(p, s);
+    return _strcpy(p, s);
 }
 
-void *memset(void *s, int c, size_t n)
+void *_memset(void *s, int c, size_t n)
 {
     for (int i = 0; i < n; i++){
        *((int*)s + i) = c;
@@ -52,8 +53,8 @@ void *memset(void *s, int c, size_t n)
 
 char *ConcatStrings(const char *first, const char *second)
 {
-  int strLen = strlen(first);
-  int strLen2 = strlen(second);
+  int strLen = _strlen(first);
+  int strLen2 = _strlen(second);
   char* p = malloc((strLen + strLen2 + 1)* sizeof(char));
   for (int i = 0; i < strLen; i++){
     p[i] = first[i];
@@ -70,7 +71,7 @@ int main()
     printf("strcmp:\n");
     char *s1 = "abcde";
     char *s2 = "abcdd";
-    int strcmpRes = strcmp(s1, s2);
+    int strcmpRes = _strcmp(s1, s2);
     if (strcmpRes > 0)
     {
         printf("    s1: %s is greater than s2: %s by %d\n", s1, s2, strcmpRes);
@@ -88,7 +89,7 @@ int main()
     printf("strcmp:\n");
     char *s1_1 = "abcde";
     char *s2_2 = "bcde";
-    int strcmpRes_2 = strcmp(s1_1, s2_2);
+    int strcmpRes_2 = _strcmp(s1_1, s2_2);
     if (strcmpRes_2 > 0)
     {
         printf("    s1: %s is greater than s2: %s by %d\n", s1, s2, strcmpRes_2);
@@ -107,7 +108,7 @@ int main()
     printf("strcpy:\n");
     char buffer[50];
     char *strToCopy = "abcde";
-    printf("    function returns: %s\n", strcpy(buffer, strToCopy));
+    printf("    function returns: %s\n", _strcpy(buffer, strToCopy));
     printf("    buffer string after function call: %s\n", buffer);
     printf("\n");
 
@@ -115,25 +116,25 @@ int main()
     printf("strlen:\n");
     char *s3 = "Programming";
     char *s4 = "Paradigms";
-    printf("    s3: %s len is %zu\n", s3, strlen(s3));
-    printf("    s4: %s len is %zu\n", s4, strlen(s4));
+    printf("    s3: %s len is %zu\n", s3, _strlen(s3));
+    printf("    s4: %s len is %zu\n", s4, _strlen(s4));
     printf("\n");
 
     // strcat
     printf("strcat:\n");
     char buffer2[50];
-    strcpy(buffer2, "Start ");
+    _strcpy(buffer2, "Start ");
 
-    printf("    function returns: %s\n", strcat(buffer2, "First"));
-    printf("    function returns: %s\n", strcat(buffer2, " Second"));
-    printf("    function returns: %s\n", strcat(buffer2, " Third"));
+    printf("    function returns: %s\n", _strcat(buffer2, "First"));
+    printf("    function returns: %s\n", _strcat(buffer2, " Second"));
+    printf("    function returns: %s\n", _strcat(buffer2, " Third"));
     printf("    buffer2 after function calls: %s\n", buffer2);
     printf("\n");
 
     // strdup
     printf("strdup:\n");
     char *originStr = "Strdup First Example";
-    char *newStr = strdup("Strdup First Example");
+    char *newStr = _strdup("Strdup First Example");
     printf("    newStr: %s\n", newStr);
     printf("    originStr value address is %p\n", (void *)originStr);
     printf("    newStr value address is %p\n", (void *)newStr);
@@ -142,7 +143,7 @@ int main()
     // memset
     printf("memset:\n");
     char memsetBuffer[50];
-    memset((void *)memsetBuffer, 'A', 40);
+    _memset((void *)memsetBuffer, 'A', 40);
     printf("    buffer after memset call: %s\n", memsetBuffer);
 
     // concat
