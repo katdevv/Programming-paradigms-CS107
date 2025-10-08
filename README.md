@@ -17,3 +17,4 @@ gcc file.c -o file && ./file
 
 # compile C++ program
 g++ file.cpp -o file && ./file
+```
